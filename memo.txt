@@ -1,0 +1,58 @@
+Spring BootとJavaScriptを組み合わせて、肉や魚の**100g当たりの価格を算出するWebアプリ**を作るのは面白いアイデアですね！  
+基本的な流れとしては、以下のような構成になります。
+
+### **1. 技術選定**
+- **バックエンド:** Spring Boot（価格計算のロジック、データ管理）
+- **フロントエンド:** JavaScript（ユーザー入力、結果表示）
+- **データベース:** MySQLやPostgreSQL（価格データの保存）
+- **API:** REST API（フロントエンドとバックエンドの通信）
+
+### **2. 実装の流れ**
+#### **① Spring Bootでバックエンドを構築**
+- 商品（肉・魚）の価格データを管理する**エンティティ**を作成
+- 価格を計算する**サービス**を実装
+- フロントエンドからのリクエストを受け取る**コントローラー**を作成
+
+#### **② JavaScriptでフロントエンドを構築**
+- ユーザーが**商品名と重量を入力**できるフォームを作成
+- 入力値をSpring BootのAPIに送信し、**計算結果を取得**
+- 計算結果を画面に表示
+
+### **3. 具体的なコード例**
+#### **Spring Boot（バックエンド）**
+```java
+@RestController
+@RequestMapping("/api")
+public class PriceController {
+    @GetMapping("/calculate")
+    public ResponseEntity<Double> calculatePrice(@RequestParam String item, @RequestParam double weight) {
+        double pricePer100g = getPricePer100g(item);
+        double totalPrice = (weight / 100) * pricePer100g;
+        return ResponseEntity.ok(totalPrice);
+    }
+
+    private double getPricePer100g(String item) {
+        Map<String, Double> priceMap = Map.of("beef", 500.0, "salmon", 300.0);
+        return priceMap.getOrDefault(item, 0.0);
+    }
+}
+```
+
+#### **JavaScript（フロントエンド）**
+```javascript
+async function calculatePrice() {
+    const item = document.getElementById("item").value;
+    const weight = document.getElementById("weight").value;
+    const response = await fetch(`/api/calculate?item=${item}&weight=${weight}`);
+    const price = await response.json();
+    document.getElementById("result").innerText = `合計価格: ${price}円`;
+}
+```
+
+### **4. 追加機能**
+- **データベース連携:** 商品ごとの価格をDBに保存し、動的に取得
+- **UI強化:** ReactやVue.jsを使って、より使いやすいインターフェースに
+- **履歴管理:** 計算履歴を保存し、過去の計算結果を確認できる機能
+
+このような構成で開発を進めると、シンプルながら実用的なアプリが作れます！  
+どんな機能を追加したいですか？ ?
