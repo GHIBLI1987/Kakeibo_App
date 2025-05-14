@@ -1,0 +1,47 @@
+/* 背景色を設定 */
+body {
+	font-family: Arial, sans-serif;
+	margin: 0;
+	padding: 0;
+	background-color: #f8f9fa;
+}
+
+nav {
+	background: linear-gradient(45deg, #6a11cb, #2575fc);
+	padding: 10px 20px;
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+}
+
+nav a {
+	color: white;
+	text-decoration: none;
+	font-size: 18px;
+	font-weight: bold;
+	transition: color 0.3s ease;
+}
+
+nav a:hover {
+	color: #ffd700;
+}
+
+/* 見出しのスタイル */
+h1 {
+  color: #333;
+  text-align: center;
+}
+
+/* ボタンのデザイン */
+button {
+  background-color: #007BFF;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #0056b3;
+}

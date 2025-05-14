@@ -1,0 +1,13 @@
+<nav id="navber">
+    <a href="#home">価格計算アプリ</a>
+    <a href="/calculate">価格計算</a>
+    <a href="/register">商品登録</a>
+    <a href="/history">履歴確認</a>
+</nav>
+<script>
+    document.querySelectorAll('nav a').forEach(link => {
+        link.addEventListener('click', () => {
+            alert(link.textContent + "ページに移動します！");
+        });
+    });
+</script>
