@@ -1,16 +1,97 @@
 <!DOCTYPE html>
 <html lang="ja">
+
 <head>
-    <meta charset="UTF-8">
-    <title>価格計算画面</title>
+	<meta charset="UTF-8">
+	<!-- CSSファイルをリンク -->
+	<link href="CSS/style.css" rel="stylesheet">
+	<title>価格計算画面</title>
 	<script>
-		document.addEventListener("DOMContentLoaded", function() {
-		    console.log("価格計算画面が読み込まれました");
-		});	
+		document.addEventListener("DOMContentLoaded", function () {
+			console.log("価格計算画面が読み込まれました");
+		});
+		function calc(weight, price) {
+			const resultpr_value = document.getElementById('resultpr').value = Math.round(price / weight * 100);
+			const cal_value = document.getElementById('cal').value = Math.round(lean_value * 40);
+			const protein_value = document.getElementById('protein').value = Math.round(lean_value * 2);
+			const fat_value = document.getElementById('fat').value = Math.round(lean_value * 0.9);
+			const carbo_value = document.getElementById('carbo').value = Math.round((cal_value - (protein_value * 4) - (fat_value * 9)) / 4);
+		}
 	</script>
 </head>
+
 <body>
-    <h1>価格計算</h1>
-    
+	<h1>価格計算</h1>
+
+	<form class="calculate_form">
+		<table border="0" Align="center">
+			<tbody>
+				<tr>
+					<th>種類(大分類)</th>
+					<td>
+						<select type="String" class="box" name="bigDirection">
+							<optgrou>
+								<option value="meet">肉</option>
+								<option value="fish">魚</option>
+								<option value="vegiteble">野菜</option>
+								<option value="seasoning">調味料</option>
+								</optgroup>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<th>種類(小分類)</th>
+					<td>
+						<select type="String" class="box" name="bigDirection">
+							<optgrou>
+								<option value="meet">肉</option>
+								<option value="fish">魚</option>
+								<option value="vegiteble">野菜</option>
+								<option value="seasoning">調味料</option>
+								</optgroup>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<th>内容量(g)</th>
+					<td>
+						<input type="number" class="box" name="weight">
+					</td>
+				</tr>
+				<tr>
+					<th>料金(円)</th>
+					<td>
+						<input type="number" class="box" name="price">
+					</td>
+				</tr>
+				<tr>
+					<th colspan="2" class="grid-cell"><input type="button" class="calc-btn"
+							onclick="calc(weight.value, price.value);" value="計算">
+					</th>
+				</tr>
+			</tbody>
+		</table>
+		
+		<table border="0" Align="center">
+			<tbody>
+				<tr>
+					<th>100グラム当たりの料金：</th>
+					<th><input id="resultpr" class="box" type="text" readonly=""></th>
+				</tr>
+				<tr>
+					<th>同種類の最安値：</th>
+					<th><input id="cal" class="box" type="text" readonly=""></th>
+				</tr>
+				<tr>
+					<th>最安値の店舗：</th>
+					<th><input id="protein" class="box" type="text" readonly=""></th>
+				</tr>
+			</tbody>
+		</table>
+	</form>
+
+	<button type="button" onclick="history.back()">前のページへ戻る</button>
+
 </body>
+
 </html>
