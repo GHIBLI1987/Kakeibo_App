@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<!-- Mapperとxmlのマッピング -->
+<mapper namespace="com.example.demo.model.repository.CategoryMapper">
+
+<!-- マッピング定義 -->
+<resultMap type="com.example.model.MCategory" id="category">
+	<id column="category_id" property="categoryId" />
+	<result column="categoryname" property="categoryName" />
+</resultMap>
+	
+	<!-- 分類取得 -->
+	<select id="findCategory" resultType="findCategory">
+		SELECT * FROM M_Category WHERE parent is NULL
+	</select>
+
+</mapper>

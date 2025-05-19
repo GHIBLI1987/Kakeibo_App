@@ -10,12 +10,17 @@
 		document.addEventListener("DOMContentLoaded", function () {
 			console.log("価格計算画面が読み込まれました");
 		});
+		let select = document.querySelector('[name="bigDirectionlist"]');
+		
+		function getLittleDirectionlist() {
+			const bigDirection = document.getElementById("bigDirectionlist").value;
+			console.log(bigDirection);
+		}
+		
 		function calc(weight, price) {
 			const resultpr_value = document.getElementById('resultpr').value = Math.round(price / weight * 100);
 			const cal_value = document.getElementById('cal').value = Math.round(lean_value * 40);
 			const protein_value = document.getElementById('protein').value = Math.round(lean_value * 2);
-			const fat_value = document.getElementById('fat').value = Math.round(lean_value * 0.9);
-			const carbo_value = document.getElementById('carbo').value = Math.round((cal_value - (protein_value * 4) - (fat_value * 9)) / 4);
 		}
 	</script>
 </head>
@@ -29,12 +34,12 @@
 				<tr>
 					<th>種類(大分類)</th>
 					<td>
-						<select type="String" class="box" name="bigDirection">
+						<select type="String" class="box" name="bigDirectionList" onchange="getLittleDirectionlist()">
 							<optgrou>
-								<option value="meet">肉</option>
-								<option value="fish">魚</option>
-								<option value="vegiteble">野菜</option>
-								<option value="seasoning">調味料</option>
+								<option th:each="bigDirection : ${bigDirectionList}"
+									th:value="${bigDirection.categoryId}" th:text="${bigDirection.categoryName}"
+									th:selected="${bigDirection.categoryId == selectedValue}">
+								</option>
 								</optgroup>
 						</select>
 					</td>
@@ -42,13 +47,14 @@
 				<tr>
 					<th>種類(小分類)</th>
 					<td>
-						<select type="String" class="box" name="bigDirection">
+						<select type="String" class="box" name="littleDirectionList">
 							<optgrou>
-								<option value="meet">肉</option>
-								<option value="fish">魚</option>
-								<option value="vegiteble">野菜</option>
-								<option value="seasoning">調味料</option>
-								</optgroup>
+								<optgrou>
+									<option th:each="littleDirection : ${littleDirectionlist}"
+										th:value="${littleDirection.categoryId}"
+										th:text="${littleDirection.categoryName}"
+										th:selected="${littleDirection.categoryId == selectedValue}">
+									</option>
 						</select>
 					</td>
 				</tr>
@@ -61,7 +67,7 @@
 				<tr>
 					<th>料金(円)</th>
 					<td>
-						<input type="number" class="box" name="price">
+						<input id="price" type="number" class="box" name="price">
 					</td>
 				</tr>
 				<tr>
@@ -71,7 +77,7 @@
 				</tr>
 			</tbody>
 		</table>
-		
+
 		<table border="0" Align="center">
 			<tbody>
 				<tr>
