@@ -6,6 +6,8 @@
 	<!-- CSSファイルをリンク -->
 	<link href="CSS/style.css" rel="stylesheet">
 	<title>価格計算画面</title>
+	<!--<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>-->
+	<script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha384-3ceskX3iaEnIogmQchP8opvBy3Mi7Ce34nWjpBIwVTHfGYWQS9jwHDVRnpKKHJg7" crossorigin="anonymous"></script>
 	<script>
 		document.addEventListener("DOMContentLoaded", function () {
 			console.log("価格計算画面が読み込まれました");
@@ -13,8 +15,8 @@
 		let select = document.querySelector('[name="bigDirectionlist"]');
 		
 		function getLittleDirectionlist() {
-			const bigDirection = document.getElementById("bigDirectionlist").value;
-			console.log(bigDirection);
+			var bigDirection = document.getElementById("bigDirectionList").value;
+			document.getElementById('littleDirectionList').value = $.get({url: location.origin + '/calculate/changeBigDirection?bigDirection='+bigDirection, type: "POST"});
 		}
 		
 		function calc(weight, price) {
@@ -34,7 +36,7 @@
 				<tr>
 					<th>種類(大分類)</th>
 					<td>
-						<select type="String" class="box" name="bigDirectionList" onchange="getLittleDirectionlist()">
+						<select type="String" class="box" id="bigDirectionList" name="bigDirectionList" onchange="getLittleDirectionlist()">
 							<optgrou>
 								<option th:each="bigDirection : ${bigDirectionList}"
 									th:value="${bigDirection.categoryId}" th:text="${bigDirection.categoryName}"
@@ -47,13 +49,13 @@
 				<tr>
 					<th>種類(小分類)</th>
 					<td>
-						<select type="String" class="box" name="littleDirectionList">
+						<select type="String" class="box" id="littleDirectionList" name="littleDirectionList">
 							<optgrou>
 								<optgrou>
-									<option th:each="littleDirection : ${littleDirectionlist}"
+									<option th:each="littleDirection : ${littleDirectionList}"
 										th:value="${littleDirection.categoryId}"
 										th:text="${littleDirection.categoryName}"
-										th:selected="${littleDirection.categoryId == selectedValue}">
+										>
 									</option>
 						</select>
 					</td>
