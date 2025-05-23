@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.example.demo.model.MCategory;
@@ -35,9 +34,10 @@ public class CalculateController {
     }
 	
 	@PostMapping("/calculate/changeBigDirection")
-    public String changeBigDirection(@ModelAttribute("littleDirectionList") String bigDirection) {
+	public String changeBigDirection(String bigDirection, Model model) {
 		// 小分類のプルダウン値取得
 		List<MCategory> littleDirectionList = service.getLittleDirectionList(bigDirection);
-        return "calculate"; // calculate.htmlを表示
+		model.addAttribute("littleDirectionList", littleDirectionList);
+        return "calculate :: test-fragment"; // calculate.htmlを表示
     }
 }

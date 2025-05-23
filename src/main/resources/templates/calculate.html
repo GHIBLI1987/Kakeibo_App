@@ -16,7 +16,22 @@
 		
 		function getLittleDirectionlist() {
 			var bigDirection = document.getElementById("bigDirectionList").value;
-			document.getElementById('littleDirectionList').value = $.get({url: location.origin + '/calculate/changeBigDirection?bigDirection='+bigDirection, type: "POST"});
+			url = location.origin + '/calculate/changeBigDirection?bigDirection='+bigDirection;
+			var targetElement = document.getElementById("littleDirectionList");
+			$.ajax({
+			      method: 'POST',
+			      data: {},
+			      url: url
+			    }).then(
+			            function(data) {
+			              targetElement.outerHTML = data;
+			            },
+			            function() {
+			              alert("error");
+			            });
+			  
+			console.log("小分類処理開始");
+			console.log(littleDirectionList);
 		}
 		
 		function calc(weight, price) {
@@ -48,15 +63,17 @@
 				</tr>
 				<tr>
 					<th>種類(小分類)</th>
-					<td>
+					<td th:fragment="test-fragment">
 						<select type="String" class="box" id="littleDirectionList" name="littleDirectionList">
 							<optgrou>
-								<optgrou>
+								<optgroup>
 									<option th:each="littleDirection : ${littleDirectionList}"
 										th:value="${littleDirection.categoryId}"
 										th:text="${littleDirection.categoryName}"
-										>
+										th:selected="${littleDirection.categoryId == selectedValue}">
 									</option>
+								</optgroup>
+							</optgroup>
 						</select>
 					</td>
 				</tr>
